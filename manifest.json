@@ -1,0 +1,14 @@
+{
+  "name": "tab-controller",
+  "description": "control tab to move ",
+  "version": "1.0",
+  "manifest_version": 3,
+  "icons": {
+    "48": "images/48.png"
+  },
+  "permissions": ["tabs"],
+  "action": {
+    "default_title": "Control tab",
+    "default_popup": "popup/index.html"
+  }
+}
