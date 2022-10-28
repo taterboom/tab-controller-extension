@@ -4,16 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && pnpm build:popup && pnpm cp:ext",
+    "cp:ext": "cp manifest.json dist/ && cp -R images dist/",
+    "build:popup": "pnpm build:popup:js && cp popup/index.html dist/popup/ && cp popup/index.css dist/popup/index.css",
+    "build:popup:js": "esbuild popup/index.tsx --outfile=dist/popup/index.js --bundle --minify"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/react": "^18.0.23",
-    "@types/react-dom": "^18.0.7"
+    "@types/react-dom": "^18.0.7",
+    "esbuild": "^0.15.12"
   },
   "dependencies": {
+    "@types/chrome": "^0.0.200",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
