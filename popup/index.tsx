@@ -116,10 +116,10 @@ function App() {
   return (
     <div className="container">
       <div className="controller">
-        <button onClick={() => move("start")}>
+        <button title="Heading" onClick={() => move("start")}>
           <MaterialSymbolsKeyboardDoubleArrowLeftRounded />
         </button>
-        <button onClick={() => move("left")}>
+        <button title="Left" onClick={() => move("left")}>
           <MaterialSymbolsChevronLeftRounded />
         </button>
         <input
@@ -132,25 +132,26 @@ function App() {
             }
           }}
         ></input>
-        <button onClick={() => move("right")}>
+        <button title="Right" onClick={() => move("right")}>
           <MaterialSymbolsChevronRightRounded />
         </button>
-        <button onClick={() => move("end")}>
+        <button title="Trailing" onClick={() => move("end")}>
           <MaterialSymbolsKeyboardDoubleArrowRightRounded />
         </button>
       </div>
       <div className="controller">
-        <button onClick={() => moveToNewWindow(-1)}>
+        <button title="Move left tabs" onClick={() => moveToNewWindow(-1)}>
           <MaterialSymbolsChevronLeftRounded />
           <MdiCreditCardMultiple />
         </button>
         <button
+          title="Move current tab"
           onClick={() => moveToNewWindow(0)}
           style={{ boxSizing: "content-box", paddingLeft: "1em", paddingRight: "1em" }}
         >
           <MdiCreditCardMultiple />
         </button>
-        <button onClick={() => moveToNewWindow(1)}>
+        <button title="Move right tabs" onClick={() => moveToNewWindow(1)}>
           <MdiCreditCardMultiple />
           <MaterialSymbolsChevronRightRounded />
         </button>
