@@ -7,9 +7,11 @@
     "48": "images/48.png",
     "128": "images/128.png"
   },
-  "permissions": ["tabs"],
   "action": {
     "default_title": "Control tab",
     "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }

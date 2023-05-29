@@ -5,6 +5,7 @@ import {
   MaterialSymbolsChevronRightRounded,
   MaterialSymbolsKeyboardDoubleArrowLeftRounded,
   MaterialSymbolsKeyboardDoubleArrowRightRounded,
+  MdiCreditCardMultiple,
 } from "./icons"
 
 type MoveType = "left" | "right" | "start" | "end" | number
@@ -62,17 +63,45 @@ const useTabController = () => {
     [activeTabIndex, activeTabId]
   )
 
+  const moveToNewWindow = useCallback(
+    async (dir: -1 | 0 | 1) => {
+      if (!activeTabId) return
+      const tabs = await chrome.tabs.query({ currentWindow: true })
+      let toBeMoved: chrome.tabs.Tab[] = []
+      switch (dir) {
+        case -1:
+          toBeMoved = tabs.filter((tab) => tab.index < activeTabIndex)
+          break
+        case 1:
+          toBeMoved = tabs.filter((tab) => tab.index > activeTabIndex)
+          break
+        case 0:
+        // toBeMoved = tabs.filter((tab) => tab.index === activeTabIndex)
+        default:
+          break
+      }
+      // move tab in popup will not work when the activeTab is moving.
+      // move tab in background will be ok.
+      chrome.runtime.sendMessage({
+        type: "MOVE_TABS_TO_NEW_WINDOW",
+        payload: { tabIds: toBeMoved.map((item) => item.id!), dir, activeTabId },
+      })
+    },
+    [activeTabId]
+  )
+
   return {
     activeTabIndex,
     activeTabId,
     error,
     move,
+    moveToNewWindow,
   }
 }
 
 function App() {
   const inputRef = useRef<HTMLInputElement>(null)
-  const { move, error, activeTabIndex, activeTabId } = useTabController()
+  const { move, moveToNewWindow, error, activeTabIndex, activeTabId } = useTabController()
 
   useEffect(() => {
     if (!inputRef.current) return
@@ -85,29 +114,47 @@ function App() {
   if (!activeTabId) return null
 
   return (
-    <div className="controller">
-      <button onClick={() => move("start")}>
-        <MaterialSymbolsKeyboardDoubleArrowLeftRounded />
-      </button>
-      <button onClick={() => move("left")}>
-        <MaterialSymbolsChevronLeftRounded />
-      </button>
-      <input
-        ref={inputRef}
-        type="number"
-        onKeyDown={(e) => {
-          if (!inputRef.current) return
-          if (e.key === "Enter") {
-            move(+inputRef.current.value)
-          }
-        }}
-      ></input>
-      <button onClick={() => move("right")}>
-        <MaterialSymbolsChevronRightRounded />
-      </button>
-      <button onClick={() => move("end")}>
-        <MaterialSymbolsKeyboardDoubleArrowRightRounded />
-      </button>
+    <div className="container">
+      <div className="controller">
+        <button onClick={() => move("start")}>
+          <MaterialSymbolsKeyboardDoubleArrowLeftRounded />
+        </button>
+        <button onClick={() => move("left")}>
+          <MaterialSymbolsChevronLeftRounded />
+        </button>
+        <input
+          ref={inputRef}
+          type="number"
+          onKeyDown={(e) => {
+            if (!inputRef.current) return
+            if (e.key === "Enter") {
+              move(+inputRef.current.value)
+            }
+          }}
+        ></input>
+        <button onClick={() => move("right")}>
+          <MaterialSymbolsChevronRightRounded />
+        </button>
+        <button onClick={() => move("end")}>
+          <MaterialSymbolsKeyboardDoubleArrowRightRounded />
+        </button>
+      </div>
+      <div className="controller">
+        <button onClick={() => moveToNewWindow(-1)}>
+          <MaterialSymbolsChevronLeftRounded />
+          <MdiCreditCardMultiple />
+        </button>
+        <button
+          onClick={() => moveToNewWindow(0)}
+          style={{ boxSizing: "content-box", paddingLeft: "1em", paddingRight: "1em" }}
+        >
+          <MdiCreditCardMultiple />
+        </button>
+        <button onClick={() => moveToNewWindow(1)}>
+          <MdiCreditCardMultiple />
+          <MaterialSymbolsChevronRightRounded />
+        </button>
+      </div>
     </div>
   )
 }

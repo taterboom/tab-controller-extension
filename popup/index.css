@@ -1,7 +1,7 @@
 * {
   box-sizing: border-box;
+  
 }
-
 @media (prefers-color-scheme: dark) {
   :root {
     color: #f1f4f5;
@@ -9,8 +9,18 @@
   }
 }
 
+.container {
+  padding: 0.5em;
+}
+
+.container > * {
+  margin-top: 0.8em;
+}
+
 .controller {
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 0.5em;
 }
 

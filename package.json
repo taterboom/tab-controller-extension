@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && pnpm build:popup && pnpm cp:ext",
+    "build": "rm -rf dist && pnpm build:popup && pnpm cp:ext && pnpm build:background",
     "cp:ext": "cp manifest.json dist/ && cp -R images dist/",
     "build:popup": "pnpm build:popup:js && cp popup/index.html dist/popup/ && cp popup/index.css dist/popup/index.css",
-    "build:popup:js": "esbuild popup/index.tsx --outfile=dist/popup/index.js --bundle --minify"
+    "build:popup:js": "esbuild popup/index.tsx --outfile=dist/popup/index.js --bundle --minify",
+    "build:background": "esbuild background.ts --outfile=dist/background.js --bundle --minify"
   },
   "keywords": [],
   "author": "",
