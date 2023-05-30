@@ -1,30 +1,67 @@
 * {
-  box-sizing: border-box;
-  
+  box-sizing: border-box; 
 }
+
+:root {
+  --size: 4px;
+  --foreground-color: #232323;
+  --background-color: #f1f1f1;
+  --shadow-color-1: #d1d9e6;
+  --shadow-color-2: #ffffff;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
-    color: #f1f4f5;
-    background-color: #232931;
+    --foreground-color: #e2e2e2;
+    --background-color: #232323;
+    --shadow-color-1: #1a1a1a;
+    --shadow-color-2: #2e2e2e;
   }
+}
+
+:root {
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+  text-align: center;
+  padding: 0 1em;
+}
+
+h2 {
+  margin-top: 2em;
+  font-weight: 500;
 }
 
 .container {
   padding: 0.5em;
 }
 
-.container > * {
-  margin-top: 0.8em;
-}
-
 .controller {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 0.5em;
+  gap: 1em;
+  margin-top: 0.5em;
 }
 
 .controller > input {
-  width: 3.5em;
-  padding: 0.1em 0.4em;
+  width: 4em;
+  padding: 0.5em 0.5em !important;
+}
+
+button, input {
+  outline: none;
+  border: none;
+  padding: 0.5em 1.25em;
+  border-radius: 0.4em;
+  color: var(--foreground-color);
+  background-color: var(--background-color);
+  box-shadow: var(--size) var(--size) calc(var(--size) * 2) var(--shadow-color-1), calc(var(--size) * -1) calc(var(--size) * -1) calc(var(--size) * 2) var(--shadow-color-2);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:active, input:focus {
+  box-shadow: inset var(--size) var(--size) calc(var(--size) * 2) var(--shadow-color-1), inset calc(var(--size) * -1) calc(var(--size) * -1) calc(var(--size) * 2) var(--shadow-color-2);
 }

@@ -115,6 +115,7 @@ function App() {
 
   return (
     <div className="container">
+      <h2>Move</h2>
       <div className="controller">
         <button title="Heading" onClick={() => move("start")}>
           <MaterialSymbolsKeyboardDoubleArrowLeftRounded />
@@ -139,6 +140,7 @@ function App() {
           <MaterialSymbolsKeyboardDoubleArrowRightRounded />
         </button>
       </div>
+      <h2>Move to a new window</h2>
       <div className="controller">
         <button title="Move left tabs" onClick={() => moveToNewWindow(-1)}>
           <MaterialSymbolsChevronLeftRounded />
@@ -147,7 +149,7 @@ function App() {
         <button
           title="Move current tab"
           onClick={() => moveToNewWindow(0)}
-          style={{ boxSizing: "content-box", paddingLeft: "1em", paddingRight: "1em" }}
+          style={{ boxSizing: "content-box", paddingLeft: "1.8em", paddingRight: "1.8em" }}
         >
           <MdiCreditCardMultiple />
         </button>

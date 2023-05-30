@@ -1,7 +1,7 @@
 {
   "name": "tab-controller",
-  "description": "control tab",
-  "version": "1.0",
+  "description": "Easy tabs move.",
+  "version": "2.0.0",
   "manifest_version": 3,
   "icons": {
     "48": "images/48.png",
